@@ -38,6 +38,18 @@ module PivotTable
       it { should respond_to :column_name }
       it { should respond_to :columns }
       it { should respond_to :rows }
+      it { should respond_to :column_sort_attribute }
+      it { should respond_to :row_sort_attribute }
+    end
+
+    context 'default column sort attribute' do
+      subject { Grid.new.column_sort_attribute }
+      it { should == :to_s }
+    end
+
+    context 'default row sort attribute' do
+      subject { Grid.new.row_sort_attribute }
+      it { should == :to_s }
     end
 
     describe 'build' do

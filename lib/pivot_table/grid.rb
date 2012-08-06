@@ -1,10 +1,13 @@
 module PivotTable
   class Grid
+    DEFAULT_SORT_ATTRIBUTE = :to_s
 
-    attr_accessor :source_data, :row_name, :column_name
+    attr_accessor :source_data, :row_name, :column_name, :column_sort_attribute, :row_sort_attribute
     attr_reader :columns, :rows, :data_grid
 
     def initialize(&block)
+      self.column_sort_attribute = DEFAULT_SORT_ATTRIBUTE
+      self.row_sort_attribute = DEFAULT_SORT_ATTRIBUTE
       yield(self) if block_given?
     end
 
@@ -30,11 +33,11 @@ module PivotTable
     end
 
     def column_headers
-      headers @column_name
+      headers @column_name, column_sort_attribute
     end
 
     def row_headers
-      headers @row_name
+      headers @row_name, row_sort_attribute
     end
 
     def prepare_grid
@@ -58,9 +61,9 @@ module PivotTable
     end
 
     private
-    def headers method
-      @source_data.collect { |c| c.send method }.uniq.sort
-    end
 
+    def headers method, sort_attribute
+      @source_data.collect { |c| c.send method }.uniq.sort_by { |obj| obj.send sort_attribute }
+    end
   end
 end

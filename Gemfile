@@ -11,7 +11,7 @@ group :development, :test do
   gem 'autotest-notification'
   gem 'bundler'
   gem 'launchy'
-  gem 'rcov'
+  gem 'simplecov'
   gem 'rspec'
   gem 'shoulda-matchers'
 end
