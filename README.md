@@ -93,6 +93,20 @@ E.g. The rows and columns collections make it very easy to produce horizontal, v
 
 Ah, that's better.
 
+### Sorting
+
+By default, rows and columns are sorted by their header values.  The sort will be applied to the values as strings by default, but this can be changed.
+Columns and rows can be sorted by a specific attribute of their header values, like so:
+
+    grid = PivotTable::Grid.new do |g|
+      g.source_data            = data
+      g.column_name            = :quarter
+      g.row_name               = :city
+      g.column_sort_attribute  = :to_i
+    end
+
+The preceeding will sort the columns by their headers, treating the values as integers instead of strings.
+
 Still to come
 -------------
 
